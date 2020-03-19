@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adeng1024.admin.mapper.UserMapper">
+    <insert id="addUser" parameterType="User"  >
+        INSERT INTO `admin`.`user` (`username`, `password`,`salt`,`date`) VALUES ( #{username}, #{password},#{salt},#{date});
+    </insert>
+    <delete id="deleteUserById" parameterType="int">
+        DELETE  FROM  user where id = #{id}
+    </delete>
+    <select id="queryUserByName" parameterType="String" resultType="User">
+        SELECT * from user WHERE username = #{username}
+    </select>
+
+    <select id="queryUserList"  resultType="User">
+        SELECT * from user WHERE role = 'user'
+    </select>
+</mapper>

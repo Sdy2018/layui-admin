@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>layui-admin</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}" >
+	<link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+	<style>
+		@media screen and (max-width: 600px) {
+			.table {
+				width: 320px !important;
+			}
+			.add{
+				width: 320px !important;
+			}
+		}
+		@media screen and (min-width: 600px) and (max-width: 700px) {
+			.table {
+				width: 65% !important;
+			}
+			.add{
+				width: 65% !important;
+			}
+		}
+		@media screen and (min-width: 700px) and (max-width: 840px) {
+			.table {
+				width: 75% !important;
+			}
+			.add{
+				width: 75% !important;
+			}
+		}
+		@media screen and (min-width: 840px) and (max-width: 940px) {
+			.table {
+				width: 600px !important;
+			}
+			.add{
+				width: 600px !important;
+			}
+		}
+
+		@media screen and (min-width: 940px) and (max-width: 1050px) {
+			.table {
+				width: 700px !important;
+			}
+			.add{
+				width: 700px !important;
+			}
+		}
+
+		@media screen and (min-width: 1050px) and (max-width: 1200px) {
+			.table {
+				width: 800px !important;
+			}
+			.add{
+				width: 800px !important;
+			}
+		}
+
+		@media screen and (min-width: 1200px) and (max-width: 1400px) {
+			.table {
+				width: 950px !important;
+			}
+			.add{
+				width: 950px !important;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div id="ok" style="display: none;">
+		<div  th:replace="commons/common::commonNav"></div>
+	</div>
+	<div class="layui-layout layui-layout-admin">
+		<div  th:replace="commons/common::commonHeader"></div>
+		<div class="layui-row">
+			<div class="layui-hide-xs">
+				<div  th:replace="commons/common::commonNav"></div>
+				<div class="layui-body">
+					<!-- 内容主体区域 -->
+					<div style="padding: 15px;">
+						<div  th:replace="commons/common-body::userBody"></div>
+					</div>
+				</div>
+				<div class="layui-footer">
+					<!-- 底部固定区域 -->
+					<div style="height: 40px;background-color: #fff;line-height: 40px;text-align: center;">
+						© layui-admin by sdy2018
+					</div>
+				</div>
+			</div>
+			<div class="layui-hide-sm">
+				<div class="content" style="padding: 10px;">
+					<div  th:replace="commons/common-body::userBody"></div>
+				</div>
+				<div class="layui-foot" style="height: 40px;background-color: #fff;line-height: 40px;text-align: center;">
+					© layui-admin by sdy2018
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:src="@{/layui/layui.js}"></script>
+	<script>
+	document.getElementById('ok')
+	//JavaScript代码区域
+	layui.use('element', function() {
+		var element = layui.element;
+
+	});
+
+	function handleDeleteClick(id){
+		layui.use(['layer', 'jquery'], function() {
+			let layer = layui.layer;
+			let $=layui.$;
+			layer.confirm('是否删除?', {icon: 3, title:'提示'}, function(index){
+				layer.close(index);
+				layer.msg('loading', {
+					icon: 16,
+					shade: 0.01,
+					time: 0
+				});
+				$.ajax({
+					url:"/user/delete/"+id,
+					type:"DELETE",
+					contentType:"application/json",//设置请求参数类型为json字符串
+					dataType:"json",
+					success:function(res){
+						if(res.code==200){
+							window.location.href="/user";
+						}
+						layer.close(layer.msg());
+						layer.msg(res.msg)
+					},
+					error:function(){
+						layer.msg("网络错误")
+						layer.close(layer.msg());
+					}
+
+				});
+			});
+		})
+	}
+
+	function handleMenuClick() {
+		layui.use(['layer', 'jquery'], function() {
+			var $ = layui.$ //重点处
+				,
+				layer = layui.layer;
+			//确认、取消按钮（常用）
+
+			layer.open({
+				type: 1,
+				title: false,
+				shadeClose: true,
+				shade: 0.01,
+				closeBtn: 0,
+				anim: 3,
+				resize: false,
+				isOutAnim: false,
+				offset: 'l',
+				area: ['100px', '100%'],
+				content: $('#ok'), //iframe的url,
+				success() {
+					$('#ok').css('display', 'inlineBlock');
+				},
+				end: function() {
+					$('#ok').css('display', 'none');
+				}
+			});
+		});
+	}
+	</script>
+</body>
+
+</html>

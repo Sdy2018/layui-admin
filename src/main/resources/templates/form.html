@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>layui-admin</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}" >
+	<link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+	<style>
+	</style>
+</head>
+
+<body>
+	<div id="drawer" style="display: none;overflow-y: auto;">
+		<div  th:replace="commons/common::commonNav"></div>
+	</div>
+	<div class="layui-layout layui-layout-admin">
+		<div  th:replace="commons/common::commonHeader"></div>
+		<div class="layui-row">
+			<div class="layui-hide-xs">
+				<div  th:replace="commons/common::commonNav"></div>
+				<div class="layui-body" style="padding: 15px;">
+					<div  th:replace="commons/common-body::formBody"></div>
+				</div>
+				<div class="layui-footer">
+					<!-- 底部固定区域 -->
+					<div style="height: 40px;background-color: #fff;line-height: 40px;text-align: center;">
+						© layui-admin by sdy2018
+					</div>
+				</div>
+			</div>
+			<div class="layui-hide-sm">
+				<div  th:replace="commons/common-body::formBody"></div>
+				<div class="layui-foot" style="height: 40px;background-color: #fff;line-height: 40px;text-align: center;">
+					© layui-admin by sdy2018
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:src="@{/layui/layui.js}"></script>
+	<script>
+	document.getElementById('drawer')
+	//JavaScript代码区域
+	layui.use('element', function() {
+		let element = layui.element;
+
+	});
+
+	function handleMenuClick() {
+		layui.use(['layer', 'jquery'], function() {
+			let $ = layui.$ //重点处
+				,
+				layer = layui.layer;
+			layer.open({
+				type: 1,
+				title: false,
+				shadeClose: true,
+				shade: 0.01,
+				closeBtn: 0,
+				anim: 3,
+				resize: false,
+				isOutAnim: false,
+				offset: 'l',
+				area: ['100px', '100%'],
+				content: $('#drawer'), //iframe的url,
+				success() {
+					$('#drawer').css('display', 'inlineBlock');
+				},
+				end: function() {
+					$('#drawer').css('display', 'none');
+				}
+			});
+		});
+	}
+	layui.use('form', function() {
+		var form = layui.form;
+
+		//监听提交
+		form.on('submit(formDemo)', function(data) {
+			layer.msg(JSON.stringify(data.field));
+			return false;
+		});
+	});
+	</script>
+</body>
+
+</html>

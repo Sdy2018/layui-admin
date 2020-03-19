@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.adeng1024.admin.mapper.EmployeeMapper">
+    <insert id="addEmp" parameterType="Employee"  >
+        INSERT INTO `admin`.`employee` (`name`, `gender`, `birthday`, `email`) VALUES ( #{name}, #{gender}, #{birthday}, #{email} );
+    </insert>
+    <delete id="deleteEmpById" parameterType="int">
+        DELETE  FROM  employee where id = #{id}
+    </delete>
+    <update id="updateEmp" parameterType="Employee">
+        UPDATE `admin`.`employee` SET `name`=#{name}, `gender`=#{gender}, `birthday`=#{birthday}, `email`=#{email} WHERE  id = #{id}
+    </update>
+    <select id="queryEmpList"  resultType="Employee">
+        SELECT * from employee
+    </select>
+    <select id="queryEmpById"  resultType="Employee" parameterType="int">
+        SELECT * from employee where id =#{id}
+    </select>
+</mapper>

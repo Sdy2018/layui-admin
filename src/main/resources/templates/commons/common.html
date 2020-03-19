@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="layui-side layui-bg-black" th:fragment="commonNav">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">页面元素</a>
+                    <dl class="layui-nav-child">
+                        <dd th:class="${#httpServletRequest.getRequestURI()=='/icon'?'layui-this':''}"><a th:href="@{icon}">图标</a></dd>
+                        <dd th:class="${#httpServletRequest.getRequestURI()=='/animate'?'layui-this':''}"><a th:href="@{animate}">动画</a></dd>
+                        <dd th:class="${#httpServletRequest.getRequestURI()=='/form'?'layui-this':''}"><a th:href="@{form}">表单</a></dd>
+                        <dd th:class="${#httpServletRequest.getRequestURI()=='/table'?'layui-this':''}"><a th:href="@{table}">表格</a></dd>
+                        <dd th:class="${#httpServletRequest.getRequestURI()=='/panel'?'layui-this':''}"><a th:href="@{panel}">面板</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">crud</a>
+                    <dl class="layui-nav-child">
+                        <dd th:class="${#httpServletRequest.getRequestURI()=='/employee'?'layui-this':''}"><a th:href="@{/employee}">人员信息管理</a></dd>
+                    </dl>
+                    <dl class="layui-nav-child"  th:if="${session.role=='super'}">
+                        <dd th:class="${#httpServletRequest.getRequestURI()=='/user'?'layui-this':''}"><a th:href="@{/user}">用户管理</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-header" th:fragment="commonHeader">
+        <div class="layui-row">
+            <div class="layui-col-md12" style="height: 60px;">
+                <div class="layui-hide-sm" style="height: 60px;line-height: 60px;display: flex;flex-direction: column;justify-content: center;">
+                    <div onclick="handleMenuClick()" class="hamburger" style="margin-left: 10px;display: flex;flex-direction: column;">
+                        <div style="height: 5px;width: 30px;background-color: #fff;margin-bottom: 5px;"></div>
+                        <div style="height: 5px;width: 30px;background-color: #fff;margin-bottom: 5px"></div>
+                        <div style="height: 5px;width: 30px;background-color: #fff"></div>
+                    </div>
+                </div>
+                <div class="layui-logo layui-hide-xs">layui admin</div>
+                <ul class="layui-nav layui-layout-right">
+                    <li class="layui-nav-item">
+                        <img  th:src="@{/image/richang.jpg}" class="layui-nav-img layui-hide-xs">
+                        <span th:text="${session.user}"></span>
+                    </li>
+                    <li class="layui-nav-item"><a th:href="@{/logout}">退出</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
