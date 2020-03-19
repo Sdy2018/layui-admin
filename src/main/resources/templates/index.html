@@ -22,7 +22,7 @@
 				<div  th:replace="commons/common::commonNav"></div>
 				<div class="layui-body">
 					<!-- 内容主体区域 -->
-					<div style="padding: 15px;">内容主体区域</div>
+					<div  th:replace="commons/common-body::indexBody"></div>
 				</div>
 				<div class="layui-footer">
 					<!-- 底部固定区域 -->
@@ -30,9 +30,7 @@
 				</div>
 			</div>
 			<div class="layui-hide-sm">
-				<div class="content" style="padding: 15px;">
-					内容主体区域
-				</div>
+				<div  th:replace="commons/common-body::indexBody"></div>
 				<div class="foot">
 				</div>
 			</div>
