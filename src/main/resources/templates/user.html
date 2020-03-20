@@ -112,7 +112,7 @@
 
 	});
 
-	function handleDeleteClick(id){
+	function handleDeleteClick(id,prefix){
 		layui.use(['layer', 'jquery'], function() {
 			let layer = layui.layer;
 			let $=layui.$;
@@ -124,13 +124,13 @@
 					time: 0
 				});
 				$.ajax({
-					url:"/user/delete/"+id,
+					url:prefix+"user/delete/"+id,
 					type:"DELETE",
 					contentType:"application/json",//设置请求参数类型为json字符串
 					dataType:"json",
 					success:function(res){
 						if(res.code==200){
-							window.location.href="/user";
+							window.location.href=prefix+"user";
 						}
 						layer.close(layer.msg());
 						layer.msg(res.msg)

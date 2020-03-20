@@ -108,7 +108,6 @@
 	</div>
 	<script th:src="@{/layui/layui.js}"></script>
 	<script>
-	document.getElementById('ok')
 	//JavaScript代码区域
 	layui.use('element', function() {
 		var element = layui.element;
@@ -142,7 +141,7 @@
 		});
 	}
 
-	function handleDeleteClick(id){
+	function handleDeleteClick(id,prefix){
 		layui.use(['layer', 'jquery'], function() {
 			let layer = layui.layer;
 			let $=layui.$;
@@ -154,13 +153,13 @@
 					time: 0
 				});
 				$.ajax({
-					url:"/employee/delete/"+id,
+					url:prefix+"employee/delete/"+id,
 					type:"DELETE",
 					contentType:"application/json",//设置请求参数类型为json字符串
 					dataType:"json",
 					success:function(res){
 						if(res.code==200){
-							window.location.href="/employee";
+							window.location.href=prefix+"employee";
 						}
 						layer.close(layer.msg());
 						layer.msg(res.msg)

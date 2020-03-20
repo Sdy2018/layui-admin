@@ -78,7 +78,7 @@
 		let form = layui.form;
 		let $=layui.$;
 		$(document).keyup(function(event){
-			if(event.keyCode ==13){
+			if(event.keyCode ==13 && !$("#submit").hasClass('layui-btn-disabled')){
 				$("#submit").trigger("click");
 			}
 		});
@@ -90,20 +90,24 @@
 				shade: 0.01,
 				time: 0
 			});
-			// layer.msg(JSON.stringify(data.field));
+			$("#submit").attr('disabled',true)
+			$("#submit").addClass('layui-btn-disabled')
+			let prefix = data.field.prefix
 			$.ajax({
 				//请求方式
 				type : "POST",
 				//请求的媒体类型
 				contentType: "application/x-www-form-urlencoded",
 				//请求地址
-				url : "../employee",
+				url : prefix+"employee",
 				//数据，json字符串
 				data : data.field,
 				//请求成功
 				success : function(res) {
+					$("#submit").attr('disabled',false);
+					$("#submit").removeClass('layui-btn-disabled')
 					if(res.code==200){
-						window.location.href="../employee";
+						window.location.href=prefix+"employee";
 					}
 					layer.msg(res.msg)
 				},
@@ -111,6 +115,8 @@
 				error : function(e){
 					layer.msg("网络错误")
 					layer.close(layer.msg());
+					$("#submit").attr('disabled',false);
+					$("#submit").removeClass('layui-btn-disabled')
 				}
 			});
 			return false;

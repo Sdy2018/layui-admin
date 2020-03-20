@@ -24,11 +24,9 @@ public class UserRealm extends AuthorizingRealm {
     //授权不是立刻授权,而是在进入页面的时候进行授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        System.out.println("-----授权了-----AuthorizationInfo");
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         Subject subject = SecurityUtils.getSubject();
         User currentUser = (User) subject.getPrincipal();//认证成功的时候的user
-        System.out.println(currentUser);
 //        info.addStringPermission();//添加权限
         info.addRole(currentUser.getRole());
         return info;
@@ -37,16 +35,12 @@ public class UserRealm extends AuthorizingRealm {
     //认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        System.out.println("-----认证了-----AuthenticationInfo");
         UsernamePasswordToken userToken = (UsernamePasswordToken) authenticationToken;
         //用户名，密码去数据库取
         User user = userService.queryUserByName(userToken.getUsername());
         if (user == null) {  //没有这个人
             return null;  //其实就是抛出UnknownAccountException异常
         }
-        System.out.println(userToken.getPassword());
-        System.out.println(user.toString());
-        System.out.println(Utill.passMd5(String.valueOf(userToken.getPassword()),user.getSalt()));
         if (user.getPassword().equals(Utill.passMd5(String.valueOf(userToken.getPassword()), user.getSalt()))) {
             user.setPassword(String.valueOf(userToken.getPassword()));
         }

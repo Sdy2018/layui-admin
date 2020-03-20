@@ -353,7 +353,7 @@
                 <td th:text="${user.role}"></td>
                 <td th:text="${#dates.format(user.date,'yyyy-MM-dd')}"></td>
                 <td>
-                    <button th:onclick="handleDeleteClick([[${user.id}]])" class="layui-btn layui-btn layui-btn-danger">删除</button>
+                    <button th:onclick="handleDeleteClick([[${user.id}]],[[@{/}]])" class="layui-btn layui-btn layui-btn-danger">删除</button>
                 </td>
             </tr>
             </tbody>
@@ -388,6 +388,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
+                    <input type="hidden" name="prefix" th:value="@{/}">
                     <button id="submit" class="layui-btn" lay-submit lay-filter="submit">创建</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
@@ -418,7 +419,7 @@
                     <td th:text="${emp.email}"></td>
                     <td>
                         <a th:href="@{/employee/update/}+${emp.id}" type="button" class="layui-btn layui-btn">编辑</a>
-                        <button th:onclick="handleDeleteClick([[${emp.id}]])" type="button" class="layui-btn layui-btn layui-btn-danger">删除</button>
+                        <button th:onclick="handleDeleteClick([[${emp.id}]],[[@{/}]])" type="button" class="layui-btn layui-btn layui-btn-danger">删除</button>
                     </td>
                 </tr>
                 </tbody>
@@ -458,7 +459,8 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
+                    <input type="hidden" name="prefix" th:value="@{/}"></input>
+                    <button id="submit" class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
@@ -495,6 +497,7 @@
                 <div class="layui-input-inline">
                     <input th:value="${#dates.format(employee.birthday,'yyyy-MM-dd')}" type="date" name="birthday" required lay-verify="required" placeholder="请输入生日" autocomplete="off" class="layui-input">
                 </div>
+                <input type="hidden" name="prefix" th:value="@{/}"></input>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">

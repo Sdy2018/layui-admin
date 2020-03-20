@@ -34,34 +34,9 @@ public class AdminController {
     private UserService userService;
     @Autowired
     private EmployeeService employeeService;
-
     @Autowired
     private ServerProperties serverProperties;
 
-    @GetMapping("/test")
-    @ResponseBody
-    public String test(){
-        System.out.println(serverProperties.getServlet().getContextPath());
-        return "--";
-    }
-//    @GetMapping("/test/{id}")
-//    public String test(@PathVariable("id") Integer id){
-//        Integer res=  userService.deleteUserById(id);
-//        return res > 0 ? "成功" : "失敗";
-//    }
-
-//    @GetMapping("/ok")
-//    public String ok(){
-//        return Utill.RandomNumber();
-//    }
-
-
-//    @GetMapping("/getUser/{username}")
-//    public User geUser(@PathVariable("username")String username){
-//
-//        return userService.queryUserByName(username);
-//    }
-//
 
     //登出
     @GetMapping("/logout")
@@ -96,6 +71,7 @@ public class AdminController {
     public String user(Model model){
         List<User> users = userService.queryUserList();
         model.addAttribute("userList", users);
+        model.addAttribute("prefix", serverProperties.getServlet().getContextPath());
         return "user";
     }
     //删除用户
@@ -144,6 +120,7 @@ public class AdminController {
     public String employee(Model model){
         List<Employee> employees = employeeService.queryEmpList();
         model.addAttribute("empList", employees);
+        model.addAttribute("prefix", serverProperties.getServlet().getContextPath());
         return "employee";
     }
 
