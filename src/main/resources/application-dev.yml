@@ -6,7 +6,7 @@ spring:
       force: true
   datasource:
     username: root
-    password:
+    password: adeng1024
     url: jdbc:mysql://localhost:3306/admin?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 5
@@ -25,8 +25,8 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
-  thymeleaf:
-    cache: false
+    thymeleaf:
+      cache: false
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   type-aliases-package: com.adeng1024.admin.pojo
