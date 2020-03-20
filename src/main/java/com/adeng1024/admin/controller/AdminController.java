@@ -17,6 +17,8 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.rsocket.RSocketProperties;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,13 +35,15 @@ public class AdminController {
     @Autowired
     private EmployeeService employeeService;
 
-//    @GetMapping("/test")
-//    public String test(){
-//        String userName = "admin";
-//        String salt =Utill.RandomNumber();
-//        Integer res=userService.addUser(new User(userName,Utill.passMd5("adeng1024",salt),salt));
-//        return res > 0 ? "成功" : "失敗";
-//    }
+    @Autowired
+    private ServerProperties serverProperties;
+
+    @GetMapping("/test")
+    @ResponseBody
+    public String test(){
+        System.out.println(serverProperties.getServlet().getContextPath());
+        return "--";
+    }
 //    @GetMapping("/test/{id}")
 //    public String test(@PathVariable("id") Integer id){
 //        Integer res=  userService.deleteUserById(id);

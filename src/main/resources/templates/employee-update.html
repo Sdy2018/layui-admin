@@ -97,13 +97,13 @@
 				//请求的媒体类型
 				contentType: "application/x-www-form-urlencoded",
 				//请求地址
-				url : "/employee/update",
+				url : "../employee/update",
 				//数据，json字符串
 				data : data.field,
 				//请求成功
 				success : function(res) {
 					if(res.code==200){
-						window.location.href="/employee";
+						window.location.href="../employee";
 					}
 					layer.msg(res.msg)
 				},

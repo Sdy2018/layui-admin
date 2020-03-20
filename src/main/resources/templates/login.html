@@ -79,14 +79,14 @@
 				time: 0
 			})
 			$.ajax({
-				url:'/toLogin',
+				url:'./toLogin',
 				method:'POST',
 				data:data.field,
 				dataType:'JSON',
 				success:function(res){
 					layer.close(layer.msg());
 					if(res.code===200){
-						window.location.href="/";
+						window.location.href="./";
 					}else{
 						layer.msg(res.msg);
 					}
