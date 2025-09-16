@@ -1,0 +1,1 @@
+springboot后台管理系统，页面使用layui框架,同时通过shiro进行鉴权。
